@@ -8,8 +8,10 @@ function checkCashRegister(price, cash, cid) {
         output.status = "INSUFFICIENT_FUNDS";
 
     } else if (totalCash === changeDue){
-        output.status = "CLOSED";
-        output.change = cid;
+        output = {
+            status : "CLOSED",
+            change : cid
+        }
 
     }
     return output;
