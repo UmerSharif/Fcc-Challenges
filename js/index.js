@@ -1,7 +1,7 @@
 
 let billValue = [
     { name: 'ONE HUNDRED', value: 100.00},
-    { name: 'TWENTY', val: 20.00},
+    { name: 'TWENTY', value: 20.00},
     { name: 'TEN', value: 10.00},
     { name: 'FIVE', value: 5.00},
     { name: 'ONE', value: 1.00},
@@ -12,20 +12,19 @@ let billValue = [
 ];
 
 // Example cash-in-drawer array:
-// [["PENNY", 1.01],
-// ["NICKEL", 2.05],
-// ["DIME", 3.1],
-// ["QUARTER", 4.25],
-// ["ONE", 90],
-// ["FIVE", 55],
-// ["TEN", 20],
-// ["TWENTY", 60],
 // ["ONE HUNDRED", 100]]
-
-
+// ["TWENTY", 60],
+// ["TEN", 20],
+// ["FIVE", 55],
+// ["ONE", 90],
+// ["QUARTER", 4.25],
+// ["DIME", 3.1],
+// ["NICKEL", 2.05],
+// [["PENNY", 1.01],
 
 function checkCashRegister(price, cash, cid) {
 
+    cid = cid.reverse();
     let changeDue = cash - price;
     let output = {status : null, change : []};
     let totalCash = cid.reduce((sum , pair) => sum += pair[1],0);
@@ -41,6 +40,15 @@ function checkCashRegister(price, cash, cid) {
 
     }
     else if(totalCash > changeDue){
+
+        let result = billValue.reduce(function(acc, next, index){
+
+           if(changeDue > next.value){
+               console.log(next.value);
+           }
+
+        },[]);
+
 
     }
     return output;
