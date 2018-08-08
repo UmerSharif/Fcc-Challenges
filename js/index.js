@@ -41,10 +41,18 @@ function checkCashRegister(price, cash, cid) {
     }
     else if(totalCash > changeDue){
 
-        let result = billValue.reduce(function(acc, next, index){
+        let result = billValue.reduce(function(acc, nextVal, index){
 
-           if(changeDue > next.value){
-               console.log(next.value);
+           if(changeDue >= nextVal.value) {
+               while (changeDue > 0) {
+                   if(cid[index][1] === 0){
+                       break;
+                   }
+                   changeDue -= nextVal.value; //changeDue = changeDue - next.value
+                   cid[index][1] -= nextVal.value;
+
+
+               }
            }
 
         },[]);
@@ -58,7 +66,7 @@ function checkCashRegister(price, cash, cid) {
 
 
 
-checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+checkCashRegister(19.5, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
 
 
 
