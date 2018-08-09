@@ -43,6 +43,8 @@ function checkCashRegister(price, cash, cid) {
 
         let result = billValue.reduce(function(acc, nextVal, index){
 
+            let ArrayOfPayments = 0;
+
            if(changeDue >= nextVal.value) {
                while (changeDue > 0) {
                    if(cid[index][1] === 0 || changeDue < nextVal.value){
@@ -50,10 +52,16 @@ function checkCashRegister(price, cash, cid) {
                    }
                    changeDue -= nextVal.value; //changeDue = changeDue - next.value
                    cid[index][1] -= nextVal.value;
+                   ArrayOfPayments += nextVal.value;
+
 
 
                }
+               ArrayOfPayments = Math.round(ArrayOfPayments * 100) / 100;
+               acc.push(nextVal.name , ArrayOfPayments);
            }
+
+            return acc;
 
         },[]);
 
