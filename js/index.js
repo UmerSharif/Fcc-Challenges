@@ -31,12 +31,15 @@ function checkCashRegister(price, cash, cid) {
 
     if(totalCash < changeDue){
         output.status = "INSUFFICIENT_FUNDS";
+        return output;
 
     } else if (totalCash === changeDue){
         output = {
             status : "CLOSED",
             change : cid
-        }
+        };
+
+        return output;
 
     }
     else if(totalCash > changeDue){
@@ -47,14 +50,13 @@ function checkCashRegister(price, cash, cid) {
 
            if(changeDue >= nextVal.value) {
                while (changeDue > 0) {
-                   if(cid[index][1] === 0 || changeDue < nextVal.value){
+                   if(cid[index][1] === 0 || changeDue < nextVal.value) {
                        break;
                    }
                    changeDue -= nextVal.value; //changeDue = changeDue - next.value
                    cid[index][1] -= nextVal.value;
                    ArrayOfPayments += nextVal.value;
-
-
+                   changeDue = Math.round(changeDue * 100) / 100;
 
                }
                ArrayOfPayments = Math.round(ArrayOfPayments * 100) / 100;
@@ -65,9 +67,15 @@ function checkCashRegister(price, cash, cid) {
 
         },[]);
 
+        output = {
+            status : "OPEN",
+            change : result
+        };
+
+        return output;
 
     }
-    return output;
+
 }
 
 
