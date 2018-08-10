@@ -62,7 +62,10 @@ function checkCashRegister(price, cash, cid) {
 
                }
                ArrayOfPayments = Math.round(ArrayOfPayments * 100) / 100;
-               acc.push([nextVal.name , ArrayOfPayments]);
+               if(ArrayOfPayments > 0){ //only add value if its not zero
+                   acc.push([nextVal.name , ArrayOfPayments]);
+               }
+
            }
 
             return acc;
@@ -74,19 +77,26 @@ function checkCashRegister(price, cash, cid) {
             change : result
         };
 
+        // if at the end changeDue is still greater than the cash available then return insufficient funds.
+        if(changeDue > output.change[0][1]){
+            output = {
+                status : "INSUFFICIENT_FUNDS",
+                change : []
+            };
+
+            return output;
+        }
+
         return output;
 
     }
-
-    return output;
-
 }
 
 
 
 
 
-checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
 
 
 
