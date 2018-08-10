@@ -55,14 +55,14 @@ function checkCashRegister(price, cash, cid) {
                    if(cid[index][1] === 0 || changeDue < nextVal.value) {
                        break;
                    }
-                   changeDue -= nextVal.value; //changeDue = changeDue - next.value
-                   cid[index][1] -= nextVal.value;
+                   changeDue -= nextVal.value; //changeDue = changeDue - next.value, subtract the value from changeDue
+                   cid[index][1] -= nextVal.value; //
                    ArrayOfPayments += nextVal.value;
                    changeDue = Math.round(changeDue * 100) / 100;
 
                }
                ArrayOfPayments = Math.round(ArrayOfPayments * 100) / 100;
-               if(ArrayOfPayments > 0){ //only add value if its not zero
+               if(ArrayOfPayments > 0){ //only add value to accumulator array if its not zero
                    acc.push([nextVal.name , ArrayOfPayments]);
                }
 
@@ -78,7 +78,7 @@ function checkCashRegister(price, cash, cid) {
         };
 
         // if at the end changeDue is still greater than the cash available then return insufficient funds.
-        if(changeDue > output.change[0][1]){
+        if(changeDue > output.change[0][1]){ // comparing the changeDue with the last index of final output
             output = {
                 status : "INSUFFICIENT_FUNDS",
                 change : []
@@ -86,15 +86,10 @@ function checkCashRegister(price, cash, cid) {
 
             return output;
         }
-
         return output;
 
     }
 }
-
-
-
-
 
 checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
 
