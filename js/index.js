@@ -60,7 +60,7 @@ function checkCashRegister(price, cash, cid) {
 
                }
                ArrayOfPayments = Math.round(ArrayOfPayments * 100) / 100;
-               acc.push(nextVal.name , ArrayOfPayments);
+               acc.push([nextVal.name , ArrayOfPayments]);
            }
 
             return acc;
