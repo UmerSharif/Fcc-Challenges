@@ -26,9 +26,10 @@ function checkCashRegister(price, cash, cid) {
 
     cid = cid.reverse();
     let changeDue = cash - price; // calculate the change due
-    let output = {status : null, change : []};
-    let totalCash = cid.reduce((sum , pair) => sum += pair[1],0);
+    let output = {status : null, change : []}; // the output format, its given in the challenge
+    let totalCash = cid.reduce((sum , pair) => sum += pair[1],0); // calculate total cash in the register
 
+    // simple conditions to check and return output if true.
     if(totalCash < changeDue){
         cid = cid.reverse();
         output.status = "INSUFFICIENT_FUNDS";
@@ -44,6 +45,7 @@ function checkCashRegister(price, cash, cid) {
         return output;
 
     }
+    // the actual calculation starts here
     else if(totalCash > changeDue){
 
         let result = billValue.reduce(function(acc, nextVal, index){
