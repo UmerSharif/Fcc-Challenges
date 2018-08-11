@@ -47,20 +47,20 @@ function checkCashRegister(price, cash, cid) {
     }
     // the actual calculation starts here
     else if(totalCash > changeDue){
-
+// use Array.reduce to go through each array element
         let result = billValue.reduce(function(acc, nextVal, index){
 
             let ArrayOfPayments = 0;
 
             if(changeDue >= nextVal.value) {
                 while (changeDue > 0) {
-                    if(cid[index][1] === 0 || changeDue < nextVal.value) {
+                    if(cid[index][1] === 0 || changeDue < nextVal.value) { // break out of while loop if any of the 2 conditions are true
                         break;
                     }
                     changeDue -= nextVal.value; //changeDue = changeDue - next.value, subtract the value from changeDue
-                    cid[index][1] -= nextVal.value; //
-                    ArrayOfPayments += nextVal.value;
-                    changeDue = Math.round(changeDue * 100) / 100;
+                    cid[index][1] -= nextVal.value; // also subtract the value from the cash register
+                    ArrayOfPayments += nextVal.value; // keep summing up the value which was subtracted in the previous step.
+                    changeDue = Math.round(changeDue * 100) / 100; // round to 2 decimal places, its very important.
 
                 }
                 ArrayOfPayments = Math.round(ArrayOfPayments * 100) / 100;
@@ -74,6 +74,7 @@ function checkCashRegister(price, cash, cid) {
 
         },[]);
 
+        // putting the final array into the output object along with the status
         output = {
             status : "OPEN",
             change : result
@@ -88,7 +89,7 @@ function checkCashRegister(price, cash, cid) {
 
             return output;
         }
-        return output;
+        return output; // the very final output
 
     }
 }
